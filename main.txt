@@ -1,0 +1,284 @@
+from kivymd.app import MDApp
+from kivy.lang import Builder
+from kivy.animation import Animation
+from kivy.uix.screenmanager import FadeTransition
+from kivymd_extensions.akivymd.uix.loaders import AKImageLoader
+
+
+
+kv = '''
+
+#:import images_path kivymd.images_path
+MDScreen:
+	
+	ScreenManager:
+		id:sm
+		MDScreen:
+			name:'home'
+			md_bg_color:app.theme_cls.accent_color
+			Widget:
+			wallpaper:
+				icon:'home'
+				color1:1,1,1,1
+				color2:app.theme_cls.accent_color
+			greatlabel:
+				text:'[b][size=40]Home screen[/size][/b]'
+				markup:True
+		MDScreen:
+			md_bg_color:0,0,0,1
+			name:'facebook-messenger'
+			Widget:
+			wallpaper:
+				icon:'facebook-messenger'
+				
+			greatlabel:
+				text:'message screen'
+				
+		MDScreen:
+			md_bg_color:0,0,0,1
+			name:'bell-ring'
+			Widget:
+			wallpaper:
+				icon:'bell-ring'
+			greatlabel:
+				text:'notifaction screen'
+				
+		MDScreen:
+			md_bg_color:0,0,0,1
+			name:'video'
+			Widget:
+			wallpaper:
+				icon:'video'
+			greatlabel:
+				text:'recording screen'
+				
+		MDScreen:
+			md_bg_color:0,0,0,1
+			name:'youtube-tv'
+			Widget:
+			wallpaper:
+				icon:'youtube-tv'
+			greatlabel:
+				text:'tv screen'
+				
+		MDScreen:
+			md_bg_color:0,0,0,1
+			name:'account-multiple'
+			Widget:
+			wallpaper:
+				icon:'account-multiple'
+			greatlabel:
+				text:'groups screen'
+				
+		MDScreen:
+			md_bg_color:0,0,0,1
+			name:'account'
+			Widget:
+			wallpaper:
+				icon:'account'
+			greatlabel:
+				text:'account screen'
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	MDBoxLayout:
+		id:contain
+		orientation:'vertical'
+		md_bg_color:.2,0,.4,1
+		size_hint:None,.7
+		width:140
+		radius:[36,]
+		pos_hint:{'x':.03,'center_y':.5}
+		padding:10,20,10,20
+		spacing:15
+		FitImage:
+			size_hint:None,None
+			size:120,120
+			source:'/sdcard/pro.jpg'
+			radius:[self.height/2]
+			index:10
+		MDSeparator:
+			color:1,1,1,1
+			width:90
+			
+		ScrollView:
+			do_scroll_y:False if contain.height-contain.y > 740 else True 
+			bar_width:0
+			MDBoxLayout:
+				id:box
+				orientation:'vertical'
+				size_hint:1,None
+				adaptive_height:True
+				spacing:15
+				
+				Widget:
+					radius:[0,]
+					color:0,0,0,0
+					md_bg_color:0,0,0,0
+					size_hint:None,None
+					size:0,5
+					index:10
+					
+				smartbutton:
+					index:0
+					icon:'home'
+					md_bg_color:app.theme_cls.accent_color
+					pos_hint:{'center_x':.5,'center_y':.5}
+					width:90
+					color:1,1,1,1
+					radius:[16,16,16,16]
+					
+				smartbutton:
+					index:1
+					icon:'facebook-messenger'
+				smartbutton:
+					index:2
+					icon:'bell-ring'
+				smartbutton:
+					index:3
+					icon:'video'
+				smartbutton:
+					index:4
+					icon:'youtube-tv'
+				smartbutton:
+					index:5
+					icon:'account-multiple'
+				smartbutton:
+					index:6
+					icon:'account'
+		
+		
+		
+<smartbutton@MDFloatLayout>:
+	radius:[0,16,16,0]
+	size_hint:None,None
+	width:120
+	
+	pos_hint:{'center_x':.5,'center_y':.5}
+	height:90
+	md_bg_color:0,0,0,0
+	icon:''
+	index:0
+	color:app.theme_cls.primary_color
+	
+	MDIcon:
+		font_size:50
+		halign:'center'
+		icon:root.icon
+		adaptive_height:True
+		adaptive_width:True
+		pos_hint:{'center_x':.5,'center_y':.5}
+		theme_text_color:'Custom'
+		text_color:1,1,1,1
+		
+	Button:
+		background_color:0,0,0,0
+		pos_hint:{'center_x':.5,'center_y':.5}
+		index:root.index
+		on_press:app.call(root)
+	
+	MDBoxLayout:
+		md_bg_color:root.color
+		size_hint:None,None
+		size:60,8
+		radius:[4,]
+		pos_hint:{'center_x':.5,'center_y':.1}
+		
+	
+<wallpaper@MDFloatLayout>:
+	size_hint:1,1
+	icon:''
+	color1:1,1,1,1
+	color2:0,0,0,1
+	MDFloatLayout:
+		id:num1
+		md_bg_color:root.color1
+		radius:[0,60,0,0]
+		size_hint:None,.8	
+		width:root.width/2-102
+		pos_hint:{'x':0,'y':0}
+	MDFloatLayout:
+		id:float
+		md_bg_color:root.color1
+		radius:[60,0,0,0]
+		size_hint:None,.8	
+		width:root.width/2-102
+		pos_hint:{'right':1,'y':0}
+		
+		
+		
+	MDFloatLayout:
+		md_bg_color:root.color1
+		size_hint:None,None
+		size:210,num1.height
+		pos:num1.width-3,num1.y
+		
+		
+		
+	MDFloatLayout:
+		md_bg_color:root.color2
+		radius:[113,]
+		size_hint:None,None	
+		size:226,226
+		
+		pos:root.width/2 - 113 ,float.height-113
+		
+	MDFloatLayout:
+		md_bg_color:root.color1
+		radius:[100,]
+		size_hint:None,None	
+		size:200,200
+		pos:root.width/2 - 100,float.height-100
+		
+		MDIcon:
+			icon:root.icon
+			font_size:90
+			halign:'center'
+			adaptive_height:True
+			adaptive_width:True
+			pos_hint:{'center_x':.5,'center_y':.5}
+			theme_text_color:'Custom'
+			text_color:app.theme_cls.primary_color
+		
+
+<greatlabel@MDLabel>:
+	font_size:30
+	halign:'center'
+	text:'[b]Home screen[/b]'
+	adaptive_height:True
+	pos_hint:{'center_x':.2,'center_y':.93}
+	theme_text_color:'Custom'
+	text_color:1,1,1,1
+	markup:True
+
+'''
+class App(MDApp):
+	def build(self):
+		self.theme_cls.primary_palette = 'Teal'
+		self.theme_cls.accent_palette = 'Blue'
+		
+		
+		return Builder.load_string(kv)	
+		
+	def call(self,instance):
+		self.root.ids.sm.transition = FadeTransition()
+		for child in self.root.ids.box.children:
+			if child.index == instance.index:
+				anim = Animation(md_bg_color=(self.theme_cls.accent_color),pos_hint={'center_x':.5,'center_y':.5},width=90,color=(1,1,1,1),radius=[16,16,16,16],d=.15).start(child)
+				
+				self.root.ids.sm.current = str(instance.icon)
+				self.root.ids.sm.transition.direction = 'down'
+				
+				
+				
+			else:
+				anim = Animation(md_bg_color=(0,0,0,0),pos_hint={'center_x':.5,'center_y':.5},width=120,color=(self.theme_cls.primary_color),radius=[16,16,16,16],d=.1).start(child)
+				
+App().run()
