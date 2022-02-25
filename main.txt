@@ -2,7 +2,7 @@ from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.animation import Animation
 from kivy.uix.screenmanager import FadeTransition
-from kivymd_extensions.akivymd.uix.loaders import AKImageLoader
+
 
 
 
